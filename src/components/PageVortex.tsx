@@ -11,8 +11,12 @@ export default function PageVortex() {
     if (resolvedTheme === "dark") {
       return {
         backgroundColor: "transparent",
-        particleCount: 600,
-        baseHue: 275,
+        particleCount: 400,
+        baseHue: 268,
+        rangeHue: 12,
+        sparkChance: 0.05,
+        sparkHueBase: 28,
+        sparkHueRange: 8,
         baseSpeed: 0.0,
         rangeSpeed: 1.2,
       };
@@ -21,8 +25,12 @@ export default function PageVortex() {
     // light theme
     return {
       backgroundColor: "transparent",
-      particleCount: 600,
-      baseHue: 275,
+      particleCount: 400,
+      baseHue: 268,
+      rangeHue: 12,
+      sparkChance: 0.05,
+      sparkHueBase: 28,
+      sparkHueRange: 8,
       baseSpeed: 0.0,
       rangeSpeed: 1.0,
     };

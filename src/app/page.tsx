@@ -13,14 +13,18 @@ export default function Home() {
         <Navbar />
         <PageVortex />
 
-        <div className="mt-10 md:mt-20 relative z-10 max-w-5xl mx-auto p-6 md:p-12 space-y-24 pt-16">
+        <div className="mt-36 md:mt-20 relative z-10 max-w-5xl mx-auto p-6 md:p-12 space-y-24 pt-20 md:pt-16">
           {/* Header / Hero & About (combined) */}
-          <LiquidSection id="about">
+          <LiquidSection id="about" className="scroll-mt-56 md:scroll-mt-36">
             <div className="relative">
+              {/* Mobile-only Profile Image (centered, half-bleed above container) */}
+              <div className="absolute left-4/9 -translate-x-1/2 -top-71 w-[min(260px,80vw)] max-w-full block md:hidden pointer-events-none z-20">
+                <Image src="/profilepic.png" alt="Mohd Hafiz Jumahiddin" width={400} height={480} className="w-full h-auto object-contain drop-shadow-2xl rounded-br-3xl" priority />
+              </div>
               <div className="relative z-30 space-y-8 md:space-y-12">
                 <div className="relative">
                   <div className="space-y-2 relative z-10">
-                    <h1 className="text-4xl font-bold text-center md:text-left tracking-wide sm:text-5xl md:text-6xl md:whitespace-nowrap bg-linear-to-r from-zinc-900 to-purple-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(168,85,247,0.5)] dark:from-white dark:to-purple-200">
+                    <h1 className="float-animation text-4xl font-bold text-center md:text-left tracking-wide sm:text-5xl md:text-6xl md:whitespace-nowrap bg-linear-to-r from-zinc-900 to-purple-700 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(168,85,247,0.5)] dark:from-white dark:to-purple-200">
                       Mohd Hafiz Jumahiddin
                     </h1>
                     <div className="md:max-w-[60%] space-y-2">

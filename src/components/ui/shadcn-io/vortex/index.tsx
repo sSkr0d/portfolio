@@ -18,6 +18,10 @@ interface VortexProps {
   rangeRadius?: number;
   backgroundColor?: string;
   swirlStrength?: number;
+  rangeHue?: number;
+  sparkChance?: number;
+  sparkHueBase?: number;
+  sparkHueRange?: number;
 }
 
 export const Vortex = (props: VortexProps) => {
@@ -34,7 +38,10 @@ export const Vortex = (props: VortexProps) => {
   const baseRadius = props.baseRadius || 1;
   const rangeRadius = props.rangeRadius || 2;
   const baseHue = props.baseHue || 220;
-  const rangeHue = 0; // keep particles single-hued by default
+  const rangeHue = props.rangeHue ?? 0; // allow hue variation around base
+  const sparkChance = props.sparkChance ?? 0.02;
+  const sparkHueBase = props.sparkHueBase ?? 30; // orange-ish
+  const sparkHueRange = props.sparkHueRange ?? 10;
   // noise and swirl tuning — tweaked for more organic, unpredictable motion
   const noiseSteps = 4;
   const xOff = 0.0012;
@@ -87,15 +94,22 @@ export const Vortex = (props: VortexProps) => {
 
     let x, y, vx, vy, life, ttl, speed, radius, hue;
 
+    // spawn horizontally across entire canvas; vertically either across full height
+    // or within a centered range if `rangeY` prop is explicitly provided
     x = rand(canvas.width);
-    y = center[1] + randRange(rangeY);
+    y = props.rangeY !== undefined ? center[1] + randRange(rangeY) : rand(canvas.height);
     vx = 0;
     vy = 0;
     life = 0;
     ttl = baseTTL + rand(rangeTTL);
     speed = baseSpeed + rand(rangeSpeed);
     radius = baseRadius + rand(rangeRadius);
-    hue = baseHue + rand(rangeHue);
+    // occasionally spawn a brighter orange spark; otherwise use base purple variations
+    if (Math.random() < sparkChance) {
+      hue = sparkHueBase + rand(sparkHueRange);
+    } else {
+      hue = baseHue + rand(rangeHue);
+    }
 
     particleProps.set([x, y, vx, vy, life, ttl, speed, radius, hue], i);
   };
@@ -184,7 +198,10 @@ export const Vortex = (props: VortexProps) => {
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineWidth = radius;
-    ctx.strokeStyle = `hsla(${hue},100%,60%,${fadeInOut(life, ttl)})`;
+    // use darker purple for main particles and brighter lightness for sparks (orange hues)
+    const lightness = (hue >= 18 && hue <= 55) ? 72 : 36;
+    const saturation = (hue >= 18 && hue <= 55) ? 100 : 90;
+    ctx.strokeStyle = `hsla(${hue},${saturation}%,${lightness}%,${fadeInOut(life, ttl)})`;
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x2, y2);
