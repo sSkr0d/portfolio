@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
-  { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Experience", href: "#experience" },
   { name: "Education", href: "#education" },
@@ -16,9 +15,9 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="sticky top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
       {/* Desktop Nav */}
-      <nav className="pointer-events-auto hidden md:flex items-center gap-1 rounded-full border border-zinc-200 bg-white/80 p-2 shadow-lg backdrop-blur-xs backdrop-saturate-150 dark:border-white/10 dark:bg-black/10">
+      <nav className="pointer-events-auto hidden md:flex items-center gap-1 rounded-full border border-zinc-200 bg-white/80 p-2 shadow-lg backdrop-blur-xs backdrop-saturate-150 dark:border-white/10 dark:bg-black/30">
         {navItems.map((item) => (
           <a
             key={item.name}
